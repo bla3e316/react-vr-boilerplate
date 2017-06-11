@@ -1,4 +1,11 @@
 import React from 'react';
+
+import {createStore} from 'redux'
+import rootReducer from './data/rootReducer';
+
+import {Provider} from 'react-redux';
+import IndexContainer from './containers/IndexContainer';
+
 import {
   AppRegistry,
   asset,
@@ -7,28 +14,14 @@ import {
   View,
 } from 'react-vr';
 
-export default class react_vr_boilerplate extends React.Component {
-  render() {
-    return (
-      <View>
-        <Pano source={asset('chess-world.jpg')}/>
-        <Text
-          style={{
-            backgroundColor: '#777879',
-            fontSize: 0.8,
-            fontWeight: '400',
-            layoutOrigin: [0.5, 0.5],
-            paddingLeft: 0.2,
-            paddingRight: 0.2,
-            textAlign: 'center',
-            textAlignVertical: 'center',
-            transform: [{translate: [0, 0, -3]}],
-          }}>
-          hello
-        </Text>
-      </View>
-    );
-  }
+const store = createStore(rootReducer, {});
+
+const App = () => {
+  return (
+    <Provider store={store}>
+      <IndexContainer />
+    </Provider>
+  );
 };
 
-AppRegistry.registerComponent('react_vr_boilerplate', () => react_vr_boilerplate);
+AppRegistry.registerComponent('react_vr_boilerplate', () => App);
